@@ -1,6 +1,6 @@
-<p class="text-3xl border rounded-md p-8 bg-blue-100">task-list works!</p>
+<h2 class="title">Lista de tareas</h2>
 <section>
-  <div>
-    <app-task-item></app-task-item>
-  </div>
+  @for(task of tasks; track task.id){
+    <app-task-item [task]="task"/>
+  }
 </section>
