@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using tareas_back.Config;
 
 namespace tareas_back;
 
@@ -10,6 +12,10 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        builder.Services.AddDbContext<TareasContext>(opt =>
+        {
+            opt.UseInMemoryDatabase("TareasDb");
+        });
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
