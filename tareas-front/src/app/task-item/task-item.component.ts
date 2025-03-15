@@ -13,8 +13,7 @@ import TaskType from '../types/TaskType';
 export class TaskItemComponent {
   task = input.required<TaskType>();
 
-  constructor(private taskService:TaskService){
-  }
+  constructor(private taskService:TaskService){ }
 
   checkDone(id:number){
     //this.taskService.checkDone(id).subscribe()

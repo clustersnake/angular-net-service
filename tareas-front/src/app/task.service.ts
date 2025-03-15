@@ -8,7 +8,7 @@ import TaskResponseType from './types/TaskResponseType';
   providedIn: 'root'
 })
 export class TaskService {
-  apiurl = 'https://pokeapi.co/api/v2/pokemon'
+  apiurl = 'http://localhost:5243/api/tareas'
 
   constructor(private http: HttpClient) {}
 

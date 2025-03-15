@@ -16,10 +16,8 @@ export class TaskListComponent {
 
   ngOnInit(){
     this.taskService.getTasks().subscribe((data:any)=>{
-      this.tasks = Object.keys(data).includes('resultss') ? data.results : [
-        {id: 1, titulo: 'uno', descripcion: 'primero', estado: 'pendiente'},
-        {id: 2, titulo: 'dos', descripcion: 'segundo', estado: 'pendiente'},
-        {id: 3, titulo: 'tres', descripcion: 'tercero', estado: 'completado'}]
+
+      this.tasks = data;
     })
   }
 }

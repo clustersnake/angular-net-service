@@ -2,7 +2,7 @@ type TaskType = {
   id: number;
   titulo: string;
   descripcion?: string;
-  estado: 'pendiente' | 'completado';
+  completada: boolean;
 }
 export default TaskType;
 
