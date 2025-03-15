@@ -1,28 +1,33 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { TaskService } from '../task.service';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import TaskType from '../types/TaskType';
 
 
 @Component({
   selector: 'app-task-item',
-  imports: [JsonPipe, CommonModule],
+  imports: [CommonModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css'
 })
 export class TaskItemComponent {
   task = input.required<TaskType>();
 
+  onUpdatedTask = output<boolean>();
+
+
   constructor(private taskService:TaskService){ }
 
-  checkDone(id:number){
-    //this.taskService.checkDone(id).subscribe()
-    alert('done: ' + id)
+  checkDone(id:number, task: TaskType){
+    this.taskService.checkDone(id,task).subscribe(response => {
+      this.onUpdatedTask.emit(response);
+    })
   }
 
   delete(id:number){
-    alert('delete: ' + id)
-
+    this.taskService.deleteTask(id).subscribe(response => {
+      this.onUpdatedTask.emit(response);
+    })
   }
 
 

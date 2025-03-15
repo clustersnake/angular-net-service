@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, map, catchError, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import TaskType from './types/TaskType';
-import TaskResponseType from './types/TaskResponseType';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +12,37 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  createTask(task: TaskType):Observable<TaskResponseType> {
-    return this.http.post<TaskResponseType>(this.apiurl, task)
+  createTask(task: TaskType):Observable<TaskType> {
+    return this.http.post<TaskType>(this.apiurl, task)
   }
-  getTasks():Observable<TaskResponseType> {
-    return this.http.get<TaskResponseType>(this.apiurl)
+  getTasks():Observable<TaskType[]> {
+    return this.http.get<TaskType[]>(this.apiurl)
   }
-  checkTask(id:number):Observable<boolean> {
-    return this.http.get<boolean>(this.apiurl)
+  checkDone(id:number, task: TaskType):Observable<boolean> {
+    return this.http.put<boolean>(`${this.apiurl}/${id}`, {
+        ...task,
+        completada: true
+    })
+      .pipe(
+        map(() => true),
+        catchError((error: HttpErrorResponse) => {
+          if(error.status === 204){
+            return of(true)
+          }
+          return of(false)
+        }
+      ));
   }
   deleteTask(id: number):Observable<boolean> {
-    return this.http.get<boolean>(this.apiurl)
+    return this.http.delete<boolean>(`${this.apiurl}/${id}`)
+      .pipe(
+        map(() => true),
+        catchError((error: HttpErrorResponse) => {
+          if(error.status === 204){
+            return of(true)
+          }
+          return of(false)
+        }
+      ));
   }
 }

@@ -15,9 +15,19 @@ export class TaskListComponent {
   constructor(private taskService:TaskService){}
 
   ngOnInit(){
-    this.taskService.getTasks().subscribe((data:any)=>{
-
-      this.tasks = data;
+      this.fetchTasks()
+  }
+  refreshTasks(shoudRefresh:boolean){
+    if(shoudRefresh){
+      this.fetchTasks()
+    }
+  }
+  fetchTasks(){
+    this.taskService.getTasks().subscribe(response => {
+      this.tasks = response
     })
   }
+
+
+
 }

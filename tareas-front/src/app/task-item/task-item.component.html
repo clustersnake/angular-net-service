@@ -7,7 +7,7 @@
       <p>{{ task().descripcion }}</p>
     </div>
     <div class="flex flex-row items-center">
-      <button (click)="checkDone(task().id)" [disabled]="task().completada" class="btn btn-primary btn-square disabled:opacity-75 disabled:cursor-not-allowed"><i [ngClass]="'far ' +  (!task().completada ? 'fa-square' : 'fa-square-check')"></i></button>
+      <button (click)="checkDone(task().id, task())" [disabled]="task().completada" class="btn btn-primary btn-square disabled:opacity-75 disabled:cursor-not-allowed"><i [ngClass]="'far ' +  (!task().completada ? 'fa-square' : 'fa-square-check')"></i></button>
       <button (click)="delete(task().id)" class="btn btn-square btn-error"><i class="far fa-trash-can"></i></button>
     </div>
   </div>
