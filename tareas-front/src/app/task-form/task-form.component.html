@@ -1,0 +1,23 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="mb-4">
+  <div class="flex flex-col gap-4 mb-2">
+    <section class="flex flex-row gap-2">
+    <label class="font-bold capitalize" for="titulo">titulo:</label>
+    <input class="border w-full rounded" type="text" id="titulo" formControlName="titulo" />
+    </section>
+      @if( taskForm.get('titulo')?.invalid && taskForm.get('titulo')?.touched) {
+    <div class="text-red-400" >
+      El título es obligatorio.
+    </div>
+      }
+    <section class="flex flex-row gap-2">
+    <label class="font-bold capitalize" for="descripcion">Descripción:</label>
+    <input class="border rounded w-full" type="text" id="descripcion" formControlName="descripcion" />
+    </section>
+      @if(taskForm.get('descripcion')?.invalid && taskForm.get('descripcion')?.touched) {
+    <div class="text-red-400" >
+      La descripción es obligatoria.
+    </div>
+      }
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="taskForm.invalid">Agregar Tarea</button>
+</form>
