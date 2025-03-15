@@ -1,6 +1,21 @@
 <h2 class="title">Lista de tareas</h2>
+
+<app-task-form (taskAdded)="onTaskAdded($event)"/>
+
+@if(tasks.length > 0){
 <section>
+  <header>
+    <h2 class="font-bold capitalize">total: {{tasks.length}}</h2>
+  </header>
   @for(task of tasks; track task.id){
     <app-task-item [task]="task" (onUpdatedTask)="refreshTasks($event)"/>
   }
 </section>
+} @else {
+<section>
+  <h2 class="title">No hay tareas</h2>
+</section>
+
+
+
+}

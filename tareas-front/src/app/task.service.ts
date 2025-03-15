@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map, catchError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import TaskType from './types/TaskType';
+import TaskModel from './models/TaskModel';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  createTask(task: TaskType):Observable<TaskType> {
+  createTask(task: TaskModel):Observable<TaskType> {
     return this.http.post<TaskType>(this.apiurl, task)
   }
   getTasks():Observable<TaskType[]> {
