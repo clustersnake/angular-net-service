@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using tareas_back.Config;
 
@@ -9,7 +10,16 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+        });
 
         builder.Services.AddControllers();
         builder.Services.AddDbContext<TareasContext>(opt =>
@@ -27,11 +37,15 @@ public class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+
+        app.UseCors("AllowAll");
+
+        // app.UseAuthorization();
 
 
         app.MapControllers();
